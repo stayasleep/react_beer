@@ -1,12 +1,17 @@
 import React, { Component } from 'react';
 import ModalMenu from './modal';
+import Tap from './tap';
 
 class Welcome extends Component{
     constructor(props){
         super(props);
         this.state={
-            showModal: true,
+            showModal: false,
         };
+    }
+
+    handleTapClick(){
+        console.log("tap dat")
     }
 
     render(){
@@ -14,6 +19,7 @@ class Welcome extends Component{
             <div>
                 <div>Grab A Beer</div>
                 <ModalMenu/>
+                <Tap onClick={()=> {this.handleTapClick.bind(this)()}}/>
             </div>
         )
     }
