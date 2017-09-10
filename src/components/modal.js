@@ -9,11 +9,19 @@ class ModalMenu extends Component{
     constructor(props){
         super(props);
         this.state={
-            show: true,
+            show: this.props.show,
         };
+    }
+    componentWillReceiveProps(nextProps){
+        console.log('next nig', nextProps);
+        if(nextProps.again){
+            this.setState({show: true});
+        }
     }
     handleSubmit(values){
         console.log('submiting things',values);
+        this.setState({show: !this.state.show});
+
     }
 
     render(){
