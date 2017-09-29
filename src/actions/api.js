@@ -25,6 +25,18 @@ export const callYelp = (searchObject) => {
 
     return axios.post(`${BASE}/yelp/yelp.php`, data).then((response) => {
         console.log('yelp response',response);
+        return response.data.businesses.map((business)=>{
+            return {
+                name: business.name,
+                address: business.location.address[0],
+                city: business.location.city,
+                state: business.location.state_code,
+                zip: business.location.postal_code,
+                phone: business.display_phone,
+                url: business.url,
+                coords: {latitude: business.location.coordinate.latitude, longitude: business.location.coordinate.longitude}
+            }
+        })
     }).catch(err => {
         console.log('an err',err);
     })

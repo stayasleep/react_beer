@@ -19,7 +19,7 @@ class ModalMenu extends Component{
         this.handleChange = this.handleChange.bind(this);
     }
     componentWillMount(){
-        callYelp({beer:"Amber", location:"Irvine, CA"});
+        callYelp({beer:"Amber", location:"Irvine, CA"}).then(biz => console.log('yelpit',biz));
         callFoodPairings("Amber").then(amber=>console.log('am',amber)); //test api
 
     }

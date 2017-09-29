@@ -43,6 +43,7 @@ query_yelp($yelp_terms);
 function query_yelp($yelp_terms){
     $response = json_decode(check_search($yelp_terms));
     $response =json_encode($response);
+//    var_dump($response);
     print_r($response);
 }
 
@@ -59,7 +60,7 @@ function check_search($yelp_terms){
         }
     }
     $search_query = $GLOBALS['path'] ."?". http_build_query($params);
-    print_r($search_query);
+//    print_r($search_query);
     return request_yelp($GLOBALS['host'], $search_query);
 
 }
@@ -93,7 +94,7 @@ function request_yelp($host, $search){
     $data = curl_exec($ch);
 
     curl_close($ch);
-    var_dump($data);
+//    var_dump($data);
 
 //    try{
 //        $ch = curl_init($signed_url);
@@ -119,7 +120,7 @@ function request_yelp($host, $search){
 //            $e->getCode(), $e->getMessage()),
 //            E_USER_ERROR);
 //    }
-//    return $data;
+    return $data;
 
 
 }
