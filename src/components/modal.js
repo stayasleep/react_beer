@@ -3,7 +3,7 @@ import { Alert,Button, Modal, ToggleButtonGroup, ToggleButton} from 'react-boots
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form'
 import renderInput from './utilities/render_input';
-import {callFoodPairings} from '../actions/api';
+import {callFoodPairings, callYelp} from '../actions/api';
 import renderBeer from './utilities/render_beer';
 
 class ModalMenu extends Component{
@@ -19,6 +19,7 @@ class ModalMenu extends Component{
         this.handleChange = this.handleChange.bind(this);
     }
     componentWillMount(){
+        callYelp({beer:"Amber", location:"Irvine, CA"});
         callFoodPairings("Amber").then(amber=>console.log('am',amber)); //test api
 
     }
