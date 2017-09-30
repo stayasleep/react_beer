@@ -11,15 +11,17 @@ class Maps extends Component{
     handleMapLoad(map) {
         this._mapComponent = map;
         if (map) {
+            console.log('zoom');
             console.log(map.getZoom());
         }
     }
 
     render(){
+        console.log('state check',this.props);
         const GettingStartedGoogleMap = withGoogleMap((props) => (
             <GoogleMap
                 defaultZoom={10} //need
-                defaultCenter={{lat:17.09024, lng:-100.712891}} //need
+                defaultCenter={props.center} //we use the default from redux until user enters in an Address to center the map
                 googleMapURL={googleMapURL} //need because not using withScriptJs
                 scaleControl={true}
                 ref={props.onMapLoad}
@@ -42,7 +44,7 @@ class Maps extends Component{
                    // markers={this.state.markers}
                     //onMarkerRightClick={this.handleMarkerRightClick}
                     isMarkerShown
-                    center={{}} //pass in the default center on map load, and then the location entered as new center for each render
+                    center={this.props.center} //pass in the default center on map load, and then the location entered as new center for each render
                 />
             </div>
         )
@@ -50,8 +52,10 @@ class Maps extends Component{
 }
 //if this.props.locatin is false, use defaultCenter jsX above
 
-const mapStateToProps = () =>{
+const mapStateToProps = (state) =>{
+    // console.log('state uhh',state);
     return {
+        center: state.maps.center,
 
     }
 };

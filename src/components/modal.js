@@ -5,8 +5,13 @@ import { Field, reduxForm } from 'redux-form'
 import renderInput from './utilities/render_input';
 import {callFoodPairings, callYelp} from '../actions/api';
 import renderBeer from './utilities/render_beer';
+import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete'
+import {centerGoogleMap} from '../actions/index';
+
+
 
 class ModalMenu extends Component{
+
     constructor(props){
         super(props);
         this.state={
@@ -14,7 +19,9 @@ class ModalMenu extends Component{
             location: false,
             warning: false,
             value: "American%20IPA",
+            address:""
         };
+        this.onChange = (address) => this.setState({ address })
         this.setLocation = this.setLocation.bind(this);
         this.handleChange = this.handleChange.bind(this);
     }
@@ -23,29 +30,50 @@ class ModalMenu extends Component{
         callFoodPairings("Amber").then(amber=>console.log('am',amber)); //test api
 
     }
+
     componentWillReceiveProps(nextProps){
         console.log('next', nextProps);
         if(nextProps.again){
             this.setState({show: true});
         }
     }
-    setLocation(){
+
+    //allows us to geocode users location
+    setLocation(event){
+        event.preventDefault();
         //update redux with location value set here
         //perform google maps api request
         //setState to true or something so you can submit form
-        console.log('setttting');
+        // const geoAddress = geocodeByAddress(this.state.address).then(results => {
+        //     console.log('my latlng',getLatLng(results[0]));
+        //         return getLatLng(results[0])
+        //     });
+
+        // console.log('address brian san', geoAddress);
+        geocodeByAddress(this.state.address)
+            .then(results => getLatLng(results[0]))
+            .then(latLng => {
+
+                console.log('latlng',latLng);
+                this.props.dispatch(centerGoogleMap(latLng))
+            })
+            // .then(()=>console.log('geooo',geoAdd))
+            .catch(error => console.error('Error', error));
+
+
     }
 
+    //handles the changing of radio buttons
     handleChange(event){
-        console.log('handle me',event.target);
         this.setState({value: event.target.value});
     }
+
+    //submit the form contaning our buttons
     handleSubmit(values){
         if(this.state.location){
             console.log('approved',values);
             // this.setState({show: !this.state.show});
             //call to pairings with beer
-            //call to yelp with beer
         }else{
             console.log('eh');
             this.setState({warning: true});
@@ -56,6 +84,20 @@ class ModalMenu extends Component{
     render(){
         const { handleSubmit, reset, submitting } = this.props;
         console.log('state eh',this.state);
+
+        const inputProps = {
+            name: "location",
+            placeholder: "Enter Location",
+            autoFocus: true,
+            type: "search",
+            value: this.state.address,
+            onChange: this.onChange,
+        };
+        const options={
+            types: ["geocode"],
+            componentRestrictions: {country:'us'}
+        };
+
         return(
             <Modal show={this.state.show}>
                 <Modal.Header>
@@ -63,7 +105,8 @@ class ModalMenu extends Component{
                 </Modal.Header>
                 <Modal.Body>
                     <form onSubmit={handleSubmit((values) => {this.handleSubmit(values)})}>
-                        <Field className="form-control location-field" type="text" label="Enter Location" name="location" component={renderInput} />
+                        <PlacesAutocomplete inputProps={inputProps} options={options}/>
+                        {/*<Field className="form-control location-field" type="text" label="Enter Location" name="location" component={renderInput} />*/}
                         <Button block={true} bsStyle="primary" onClick={this.setLocation}  type="button" >Set Location</Button>
                         {this.state.warning ?
                             (
@@ -133,7 +176,15 @@ function validate(values){
 
 ModalMenu = reduxForm({
     form: 'beer',
+    initialValues:{location:"",beer:"American%20IPA"},
     validate,
 })(ModalMenu);
 
-export default ModalMenu;
+const mapStateToProps = (state)=>{
+    return{
+        setLocation: state.form.beer,
+    }
+};
+
+export default connect(mapStateToProps)(ModalMenu);
+// export default ModalMenu;

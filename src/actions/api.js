@@ -41,3 +41,7 @@ export const callYelp = (searchObject) => {
         console.log('an err',err);
     })
 };
+
+export const googleIt = () =>{
+
+};

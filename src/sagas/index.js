@@ -1,6 +1,7 @@
 import { fork } from 'redux-saga/effects';
+import watchLocationSaga from './watchLocationSaga';
 
 //register the watching saga and export it as a single generator
 export default function* startForman(){
-
+    yield fork(watchLocationSaga);
 }
