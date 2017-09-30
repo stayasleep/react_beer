@@ -7,7 +7,7 @@ export default (props) => {
         props.onClick();
     }
     return(
-        <div className="tap-it" style={{background: `url(${beertap}) center center / cover no-repeat`}} onClick={handleClick}>
+        <div className="col-md-3 tap-it" style={{background: `url(${beertap}) center center / cover no-repeat`}} onClick={handleClick}>
 
         </div>
     )

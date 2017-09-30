@@ -1,7 +1,9 @@
 import React,{ Component } from 'react';
 import { connect } from 'react-redux';
 import { withGoogleMap, GoogleMap, Marker, InfoWindow } from 'react-google-maps';
+import icon from '../images/beer.png';
 const googleMapURL ="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyDubEdvWZUOZX4jOrSXvXFxdtH3Xpuaonw";
+
 
 class Maps extends Component{
     constructor(props){
@@ -45,7 +47,7 @@ class Maps extends Component{
                 onClick={props.onMapClick}
             >
                 {props.markers.length>0 && props.markers.map((marker,index) =>(
-                    <Marker key={index} position={{lat: marker.coords.lat, lng: marker.coords.lng}} onClick={props.onToggleOpen(index)}>
+                    <Marker key={index} icon={icon} position={{lat: marker.coords.lat, lng: marker.coords.lng}} onClick={props.onToggleOpen(index)}>
                         {props.isOpen.isOpen[index] && <InfoWindow onCloseClick={props.onToggleOpen(index)}>
                             <div>
 

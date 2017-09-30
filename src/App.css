@@ -4,6 +4,8 @@ body{
     background-size: cover;
     height:100%;
     width: 100%;
+    padding: 0;
+
 }
 .title {
     text-align: center;
@@ -13,7 +15,19 @@ body{
 .tap-it {
     height: 44vmin;
     width: 22vmin;
-    position: absolute;
+    /*position: absolute;*/
+    position: fixed;
     left: 6%;
+
     bottom: 0;
+}
+
+.blackBox {
+    background: #000000;
+    opacity: .8;
+    color: white;
+    font-weight: 700;
+    margin: 2em 0;
+    padding: 3em 1em;
+    font-size: 1.5em;
 }
