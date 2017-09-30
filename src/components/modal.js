@@ -18,7 +18,7 @@ class ModalMenu extends Component{
             show: this.props.show,
             location: false,
             warning: false,
-            value: "American%20IPA",
+            value: "IPA Beer",
             address:""
         };
         this.onChange = (address) => this.setState({ address });
@@ -26,8 +26,8 @@ class ModalMenu extends Component{
         this.handleChange = this.handleChange.bind(this);
     }
     componentWillMount(){
-        callYelp({beer:"Amber", location:"Irvine, CA"}).then(biz => console.log('yelpit',biz));
-        callFoodPairings("Amber").then(amber=>console.log('am',amber)); //test api
+        //callYelp({beer:"Amber", location:"Irvine, CA"}).then(biz => console.log('yelpit',biz));
+        //callFoodPairings("Amber").then(amber=>console.log('am',amber)); //test api
 
     }
 
@@ -62,7 +62,33 @@ class ModalMenu extends Component{
         if(this.state.location){
             console.log('approved',values);
             console.log('my geo',this.props.geoAddress);
-            let search ={beer: values.beer, location: this.props.geoAddress};
+            let brewery;
+            if(values.beer === "IPA Beer"){
+                brewery = "American%20IPA";
+            }
+            switch (values.beer){
+                case "IPA Beer":
+                    brewery = "American IPA";
+                    break;
+                case "Double IPA Beer":
+                    brewery = "Imperial%20IPA";
+                    break;
+                case "Amber":
+                    brewery = "Amber";
+                    break;
+                case "Belgium Beer":
+                    brewery = "Belgian%20Dubbel";
+                    break;
+                case "Lager Beer":
+                    brewery = "American%20Lager";
+                    break;
+                case "Porter Beer":
+                    brewery = "Robust%20Porter";
+                    break;
+                default:
+                    brewery = "Stout";
+            }
+            let search ={beer: values.beer, location: this.props.geoAddress, brewery: brewery};
             this.props.dispatch(queryYelpAndPairing(search));
             this.setState({show: !this.state.show});
             //call to pairings with beer
@@ -76,6 +102,7 @@ class ModalMenu extends Component{
     render(){
         const { handleSubmit, reset, submitting } = this.props;
         console.log('state eh',this.state);
+        console.log('props eh',this.props);
 
         const inputProps = {
             name: "location",
@@ -117,11 +144,11 @@ class ModalMenu extends Component{
                         }
                         <h3>Select A Beer Style:</h3>
                             <label>
-                                <Field name="beer" type="radio" value="American%20IPA" onChange={this.handleChange} checked={this.state.value === "American%20IPA"}  component="input" />{' '}India Pale Ale
+                                <Field name="beer" type="radio" value="IPA Beer" onChange={this.handleChange} checked={this.state.value === "IPA Beer"}  component="input" />{' '}India Pale Ale
                             </label>
                             <br/>
                             <label>
-                                <Field name="beer" type="radio" value="Imperial%20IPA" onChange={this.handleChange} checked={this.state.value === "Imperial%20IPA"}  component="input"  />{' '}Imperial IPA
+                                <Field name="beer" type="radio" value="Double IPA Beer" onChange={this.handleChange} checked={this.state.value === "Double IPA Beer"}  component="input"  />{' '}Imperial IPA
                             </label>
                             <br/>
                             <label>
@@ -129,19 +156,19 @@ class ModalMenu extends Component{
                             </label>
                             <br/>
                             <label>
-                                <Field name="beer" type="radio" value="Belgian Dubbel" onChange={this.handleChange} checked={this.state.value === "Belgian Dubbel"} component="input" />{' '}Belgium
+                                <Field name="beer" type="radio" value="Belgium Beer" onChange={this.handleChange} checked={this.state.value === "Belgium Beer"} component="input" />{' '}Belgium
                             </label>
                             <br/>
                             <label>
-                                <Field name="beer" type="radio" value="American%20Lager" onChange={this.handleChange} checked={this.state.value === "American%20Lager"} component="input" />{' '}Lager
+                                <Field name="beer" type="radio" value="Lager Beer" onChange={this.handleChange} checked={this.state.value === "Lager Beer"} component="input" />{' '}Lager
                             </label>
                             <br/>
                             <label>
-                                <Field name="beer" type="radio" value="Robust%20Porter" onChange={this.handleChange} checked={this.state.value === "Robust%20Porter"} component="input" />{' '}Porter
+                                <Field name="beer" type="radio" value="Porter Beer" onChange={this.handleChange} checked={this.state.value === "Porter Beer"} component="input" />{' '}Porter
                             </label>
                             <br/>
                             <label>
-                                <Field name="beer" type="radio" value="Stout" onChange={this.handleChange} checked={this.state.value === "Stout"} component="input" />{' '}Stout
+                                <Field name="beer" type="radio" value="Stout Beer" onChange={this.handleChange} checked={this.state.value === "Stout Beer"} component="input" />{' '}Stout
                             </label>
                             <Button block={true} bsStyle="primary" type="submit" >🍻 Grab A Beer</Button>
                     </form>
@@ -168,6 +195,7 @@ function validate(values){
 
 ModalMenu = reduxForm({
     form: 'beer',
+    initialValues: {beer: "IPA Beer"},
     validate,
 })(ModalMenu);
 

@@ -48,7 +48,12 @@ class Maps extends Component{
                     <Marker key={index} position={{lat: marker.coords.lat, lng: marker.coords.lng}} onClick={props.onToggleOpen(index)}>
                         {props.isOpen.isOpen[index] && <InfoWindow onCloseClick={props.onToggleOpen(index)}>
                             <div>
-                                Hello World!
+
+                                {marker.name}
+                                {marker.address}
+                                {`${marker.city}, ${marker.state} ${marker.zip}`}
+                                {marker.phone}
+
                             </div>
                         </InfoWindow>}
                     </Marker>

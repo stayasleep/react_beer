@@ -10,7 +10,7 @@ $results = json_decode($contents, true);
 
 $api_key = $results['key'];
 $beer = $results['name'];
-
+//var_dump($results);
 $params = array("key"=>$api_key, "name"=>$beer);
 
 $unsigned_url = $results['url'];

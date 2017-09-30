@@ -6,8 +6,10 @@ export function* yelpPairSaga({payload}){
     console.log('my yelpPairSaga',payload);
     try{
         const businesses = yield call(callYelp, payload);
+        const pairing = yield call(callFoodPairings,payload);
         yield[
-            put({type: YELP_SUCCESS, businesses})
+            put({type: YELP_SUCCESS, businesses}),
+            put({type: PAIRING_SUCCESS, pairing})
         ]
     }catch(error){
         console.log('yelp pair err', error);

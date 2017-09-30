@@ -3,8 +3,8 @@ import axios from 'axios';
 const BASE = "http://localhost:8080/react_beer/server";
 
 export const callFoodPairings =(beer) => {
-
-    let data={key: "075d4da050ae5fd39db3ded4fd982c92",name: `${beer}` , url: "http://api.brewerydb.com/v2/beers"};
+    console.log('my food pair',beer);
+    let data={key: "075d4da050ae5fd39db3ded4fd982c92",name: `${beer.brewery}` , url: "http://api.brewerydb.com/v2/beers"};
     return axios.post(`${BASE}/proxy.php`,data).then((response) =>{
         console.log('food result',response);
         return response.data.filter((beer,index)=>{
@@ -40,8 +40,4 @@ export const callYelp = (searchObject) => {
     }).catch(err => {
         console.log('an err',err);
     })
-};
-
-export const googleIt = () =>{
-
 };
