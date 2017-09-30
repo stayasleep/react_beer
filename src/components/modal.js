@@ -40,7 +40,7 @@ class ModalMenu extends Component{
     //allows us to geocode users location
     setLocation(event){
         event.preventDefault();
-        //perform google maps api request
+
         geocodeByAddress(this.state.address)
             .then(results => getLatLng(results[0]))
             .then(latLng => {
@@ -48,12 +48,10 @@ class ModalMenu extends Component{
                 console.log('latlng',latLng);
                 this.props.dispatch(centerGoogleMap(latLng))
             })
-            // .then(()=>console.log('geooo',geoAdd))
             .catch(error => console.error('Error', error));
         this.setState({location: true, warning: false});
 
     }
-
     //handles the changing of radio buttons
     handleChange(event){
         this.setState({value: event.target.value});
@@ -66,8 +64,7 @@ class ModalMenu extends Component{
             console.log('my geo',this.props.geoAddress);
             let search ={beer: values.beer, location: this.props.geoAddress};
             this.props.dispatch(queryYelpAndPairing(search));
-
-            // this.setState({show: !this.state.show});
+            this.setState({show: !this.state.show});
             //call to pairings with beer
         }else{
             console.log('eh');
@@ -113,7 +110,7 @@ class ModalMenu extends Component{
                         }
                         {this.state.location ?
                             (
-                                <Alert bsStyle="primary">
+                                <Alert bsStyle="success">
                                     <h4>Your location is now set!</h4>
                                 </Alert>
                             ) : null

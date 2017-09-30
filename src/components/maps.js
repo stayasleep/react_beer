@@ -1,9 +1,13 @@
 import React,{ Component } from 'react';
 import { connect } from 'react-redux';
-import { withGoogleMap, GoogleMap, Marker } from 'react-google-maps';
+import { withGoogleMap, GoogleMap, Marker, InfoWindow } from 'react-google-maps';
 const googleMapURL ="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyDubEdvWZUOZX4jOrSXvXFxdtH3Xpuaonw";
 
 class Maps extends Component{
+    constructor(props){
+        super(props);
+        this.state={};
+    }
 
     handleMapClick(){
         console.log('map clicked')
@@ -15,8 +19,22 @@ class Maps extends Component{
             console.log(map.getZoom());
         }
     }
+    componentWillReceiveProps(nextProps){
+        console.log('map is receiving nextprops',nextProps);
+        if(nextProps.markers.length > 0){
+            let total = nextProps.markers.length;
+            this.setState({isOpen: Array(total).fill(false)});//create an array which will house state for each marker returned
+        }
+    }
+    handleInfoToggle(index){
+        console.log('toggle for a click',index);
+        const isOpenState = this.state.isOpen.slice();
+        isOpenState[index] = !this.state.isOpen[index];
+        this.setState({isOpen: isOpenState})
+    }
 
     render(){
+        console.log('map compnt state',this.state);
         const GettingStartedGoogleMap = withGoogleMap((props) => (
             <GoogleMap
                 defaultZoom={10} //need
@@ -26,7 +44,11 @@ class Maps extends Component{
                 ref={props.onMapLoad}
                 onClick={props.onMapClick}
             >
-                <Marker position={{ lat: -34.39701, lng: 150.64401 }}/>
+                {props.markers.length>0 && props.markers.map((marker,index) =>
+                    <Marker key={index} position={{lat: marker.coords.lat, lng: marker.coords.lng}} onClick={props.onToggleOpen(index)}>
+                        {props.isOpen && <InfoWindow onCloseClick={props.onToggleOpen}>"Hello World"</InfoWindow>}
+                    </Marker>
+                )}
             </GoogleMap>
         ));
         return(
@@ -40,7 +62,8 @@ class Maps extends Component{
                     }
                     onMapLoad={this.handleMapLoad.bind(this)}
                     onMapClick={this.handleMapClick.bind(this)}
-                   // markers={this.state.markers}
+                    onToggleOpen={(index)=> this.handleInfoToggle.bind(this,index)}
+                    markers={this.props.markers}
                     //onMarkerRightClick={this.handleMarkerRightClick}
                     isMarkerShown
                     center={this.props.center} //pass in the default center on map load, and then the location entered as new center for each render
@@ -52,9 +75,10 @@ class Maps extends Component{
 //if this.props.locatin is false, use defaultCenter jsX above
 
 const mapStateToProps = (state) =>{
-    // console.log('state uhh',state);
+    console.log('map comp statefunc',state);
     return {
         center: state.maps.center,
+        markers: state.yelp.yelp,
 
     }
 };

@@ -34,7 +34,7 @@ export const callYelp = (searchObject) => {
                 zip: business.location.postal_code,
                 phone: business.display_phone,
                 url: business.url,
-                coords: {latitude: business.location.coordinate.latitude, longitude: business.location.coordinate.longitude}
+                coords: {lat: business.location.coordinate.latitude, lng: business.location.coordinate.longitude}
             }
         })
     }).catch(err => {
