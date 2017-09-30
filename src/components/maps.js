@@ -44,11 +44,15 @@ class Maps extends Component{
                 ref={props.onMapLoad}
                 onClick={props.onMapClick}
             >
-                {props.markers.length>0 && props.markers.map((marker,index) =>
+                {props.markers.length>0 && props.markers.map((marker,index) =>(
                     <Marker key={index} position={{lat: marker.coords.lat, lng: marker.coords.lng}} onClick={props.onToggleOpen(index)}>
-                        {props.isOpen && <InfoWindow onCloseClick={props.onToggleOpen}>"Hello World"</InfoWindow>}
+                        {props.isOpen.isOpen[index] && <InfoWindow onCloseClick={props.onToggleOpen(index)}>
+                            <div>
+                                Hello World!
+                            </div>
+                        </InfoWindow>}
                     </Marker>
-                )}
+                ))}
             </GoogleMap>
         ));
         return(
@@ -66,6 +70,7 @@ class Maps extends Component{
                     markers={this.props.markers}
                     //onMarkerRightClick={this.handleMarkerRightClick}
                     isMarkerShown
+                    isOpen={this.state}
                     center={this.props.center} //pass in the default center on map load, and then the location entered as new center for each render
                 />
             </div>
