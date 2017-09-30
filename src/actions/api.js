@@ -21,7 +21,7 @@ export const callFoodPairings =(beer) => {
 
 
 export const callYelp = (searchObject) => {
-    let data = {term: searchObject.beer, location: searchObject.location};
+    let data = {term: searchObject.beer, location: `${searchObject.location.lat},${searchObject.location.lng}`};
 
     return axios.post(`${BASE}/yelp/yelp.php`, data).then((response) => {
         console.log('yelp response',response);

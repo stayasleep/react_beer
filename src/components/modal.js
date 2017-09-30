@@ -6,7 +6,7 @@ import renderInput from './utilities/render_input';
 import {callFoodPairings, callYelp} from '../actions/api';
 import renderBeer from './utilities/render_beer';
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete'
-import {centerGoogleMap} from '../actions/index';
+import {centerGoogleMap, queryYelpAndPairing} from '../actions/index';
 
 
 
@@ -21,7 +21,7 @@ class ModalMenu extends Component{
             value: "American%20IPA",
             address:""
         };
-        this.onChange = (address) => this.setState({ address })
+        this.onChange = (address) => this.setState({ address });
         this.setLocation = this.setLocation.bind(this);
         this.handleChange = this.handleChange.bind(this);
     }
@@ -32,7 +32,6 @@ class ModalMenu extends Component{
     }
 
     componentWillReceiveProps(nextProps){
-        console.log('next', nextProps);
         if(nextProps.again){
             this.setState({show: true});
         }
@@ -41,15 +40,7 @@ class ModalMenu extends Component{
     //allows us to geocode users location
     setLocation(event){
         event.preventDefault();
-        //update redux with location value set here
         //perform google maps api request
-        //setState to true or something so you can submit form
-        // const geoAddress = geocodeByAddress(this.state.address).then(results => {
-        //     console.log('my latlng',getLatLng(results[0]));
-        //         return getLatLng(results[0])
-        //     });
-
-        // console.log('address brian san', geoAddress);
         geocodeByAddress(this.state.address)
             .then(results => getLatLng(results[0]))
             .then(latLng => {
@@ -59,7 +50,7 @@ class ModalMenu extends Component{
             })
             // .then(()=>console.log('geooo',geoAdd))
             .catch(error => console.error('Error', error));
-
+        this.setState({location: true, warning: false});
 
     }
 
@@ -72,6 +63,10 @@ class ModalMenu extends Component{
     handleSubmit(values){
         if(this.state.location){
             console.log('approved',values);
+            console.log('my geo',this.props.geoAddress);
+            let search ={beer: values.beer, location: this.props.geoAddress};
+            this.props.dispatch(queryYelpAndPairing(search));
+
             // this.setState({show: !this.state.show});
             //call to pairings with beer
         }else{
@@ -119,7 +114,7 @@ class ModalMenu extends Component{
                         {this.state.location ?
                             (
                                 <Alert bsStyle="primary">
-                                    <h4>Your location is set to: </h4>
+                                    <h4>Your location is now set!</h4>
                                 </Alert>
                             ) : null
                         }
@@ -137,19 +132,19 @@ class ModalMenu extends Component{
                             </label>
                             <br/>
                             <label>
-                                <Field name="beer" type="radio" value="Belgian%20Dubbel" checked={this.state.value === "Belgian%20Dubbel"} component="input" />{' '}Belgium
+                                <Field name="beer" type="radio" value="Belgian Dubbel" onChange={this.handleChange} checked={this.state.value === "Belgian Dubbel"} component="input" />{' '}Belgium
                             </label>
                             <br/>
                             <label>
-                                <Field name="beer" type="radio" value="American%20Lager" checked={this.state.value === "American%20Lager"} component="input" />{' '}Lager
+                                <Field name="beer" type="radio" value="American%20Lager" onChange={this.handleChange} checked={this.state.value === "American%20Lager"} component="input" />{' '}Lager
                             </label>
                             <br/>
                             <label>
-                                <Field name="beer" type="radio" value="Robust%20Porter" checked={this.state.value === "Robust%20Porter"} component="input" />{' '}Porter
+                                <Field name="beer" type="radio" value="Robust%20Porter" onChange={this.handleChange} checked={this.state.value === "Robust%20Porter"} component="input" />{' '}Porter
                             </label>
                             <br/>
                             <label>
-                                <Field name="beer" type="radio" value="Stout" checked={this.state.value === "Stout"} component="input" />{' '}Stout
+                                <Field name="beer" type="radio" value="Stout" onChange={this.handleChange} checked={this.state.value === "Stout"} component="input" />{' '}Stout
                             </label>
                             <Button block={true} bsStyle="primary" type="submit" >🍻 Grab A Beer</Button>
                     </form>
@@ -176,13 +171,13 @@ function validate(values){
 
 ModalMenu = reduxForm({
     form: 'beer',
-    initialValues:{location:"",beer:"American%20IPA"},
     validate,
 })(ModalMenu);
 
 const mapStateToProps = (state)=>{
     return{
         setLocation: state.form.beer,
+        geoAddress: state.maps.center,
     }
 };
 

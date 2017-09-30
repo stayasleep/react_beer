@@ -17,11 +17,10 @@ class Maps extends Component{
     }
 
     render(){
-        console.log('state check',this.props);
         const GettingStartedGoogleMap = withGoogleMap((props) => (
             <GoogleMap
                 defaultZoom={10} //need
-                defaultCenter={props.center} //we use the default from redux until user enters in an Address to center the map
+                defaultCenter={props.center} //centering the map
                 googleMapURL={googleMapURL} //need because not using withScriptJs
                 scaleControl={true}
                 ref={props.onMapLoad}
