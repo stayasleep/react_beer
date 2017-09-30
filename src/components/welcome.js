@@ -22,7 +22,7 @@ class Welcome extends Component{
             <div>
                 <div className="title">Grab A Beer</div>
                 <Maps/>
-                <ModalMenu show={this.state.showModal} again={this.state.modal}/>
+                <ModalMenu show={!this.state.showModal} again={this.state.modal}/>
                 <Tap onClick={()=> {this.handleTapClick.bind(this)()}}/>
             </div>
         )
