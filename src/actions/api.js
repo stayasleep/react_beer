@@ -1,7 +1,7 @@
 import axios from 'axios';
 
-const BASE = "http://localhost:8080/react_beer/server";
-
+// const BASE = "http://localhost:8080/react_beer/server";
+const BASE = "../../react/beer/server";
 export const callFoodPairings =(beer) => {
     let data={key: "075d4da050ae5fd39db3ded4fd982c92",name: `${beer.brewery}` , url: "http://api.brewerydb.com/v2/beers"};
     return axios.post(`${BASE}/proxy.php`,data).then((response) =>{
