@@ -39,7 +39,7 @@ class Maps extends Component{
         console.log('map compnt state',this.state);
         const GettingStartedGoogleMap = withGoogleMap((props) => (
             <GoogleMap
-                defaultZoom={10} //need
+                defaultZoom={12} //need
                 defaultCenter={props.center} //centering the map
                 googleMapURL={googleMapURL} //need because not using withScriptJs
                 scaleControl={true}

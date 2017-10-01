@@ -2,12 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fe4f95d2-71bb-41a9-b9b4-3929c623fe57" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/components/yelp.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/App.css" afterPath="$PROJECT_DIR$/src/App.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/actions/api.js" afterPath="$PROJECT_DIR$/src/actions/api.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/pairings.js" afterPath="$PROJECT_DIR$/src/components/pairings.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/welcome.js" afterPath="$PROJECT_DIR$/src/components/welcome.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/maps.js" afterPath="$PROJECT_DIR$/src/components/maps.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/components/yelp.js" afterPath="$PROJECT_DIR$/src/components/yelp.js" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -95,8 +91,8 @@
       <file leaf-file-name="app.css" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/app.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="848">
-              <caret line="40" column="35" lean-forward="false" selection-start-line="40" selection-start-column="35" selection-end-line="40" selection-end-column="35" />
+            <state relative-caret-position="1088">
+              <caret line="40" column="17" lean-forward="false" selection-start-line="40" selection-start-column="17" selection-end-line="40" selection-end-column="17" />
               <folding />
             </state>
           </provider>
@@ -188,11 +184,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="maps.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="maps.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/components/maps.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2381">
-              <caret line="90" column="12" lean-forward="true" selection-start-line="90" selection-start-column="12" selection-end-line="90" selection-end-column="12" />
+            <state relative-caret-position="421">
+              <caret line="41" column="31" lean-forward="false" selection-start-line="41" selection-start-column="31" selection-end-line="41" selection-end-column="31" />
               <folding>
                 <element signature="e#0#40#0" expanded="true" />
               </folding>
@@ -210,14 +206,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="yelp.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="yelp.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/yelp.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="960">
-              <caret line="24" column="72" lean-forward="false" selection-start-line="24" selection-start-column="72" selection-end-line="24" selection-end-column="72" />
+            <state relative-caret-position="181">
+              <caret line="6" column="42" lean-forward="false" selection-start-line="6" selection-start-column="42" selection-end-line="6" selection-end-column="42" />
               <folding>
                 <element signature="e#0#26#0" expanded="true" />
-                <marker date="1506818163054" expanded="true" signature="1286:1365" ph="..." />
+                <marker date="1506819671583" expanded="true" signature="1439:1526" ph="..." />
               </folding>
             </state>
           </provider>
@@ -256,12 +252,12 @@
         <option value="$PROJECT_DIR$/src/components/modal.js" />
         <option value="$PROJECT_DIR$/server/proxy.php" />
         <option value="$PROJECT_DIR$/src/components/tap.js" />
-        <option value="$PROJECT_DIR$/src/components/maps.js" />
         <option value="$PROJECT_DIR$/src/components/pairings.js" />
         <option value="$PROJECT_DIR$/src/components/welcome.js" />
         <option value="$PROJECT_DIR$/src/actions/api.js" />
         <option value="$PROJECT_DIR$/src/components/yelp.js" />
         <option value="$PROJECT_DIR$/src/app.css" />
+        <option value="$PROJECT_DIR$/src/components/maps.js" />
       </list>
     </option>
   </component>
@@ -573,7 +569,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="91212000" />
+    <option name="totallyTimeSpent" value="92574000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-16" y="-16" width="3232" height="1732" extended-state="6" />
@@ -999,16 +995,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/maps.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2381">
-          <caret line="90" column="12" lean-forward="true" selection-start-line="90" selection-start-column="12" selection-end-line="90" selection-end-column="12" />
-          <folding>
-            <element signature="e#0#40#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/actions/api.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1000">
@@ -1035,21 +1021,31 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/yelp.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="181">
+          <caret line="6" column="42" lean-forward="false" selection-start-line="6" selection-start-column="42" selection-end-line="6" selection-end-column="42" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+            <marker date="1506819671583" expanded="true" signature="1439:1526" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/app.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="848">
-          <caret line="40" column="35" lean-forward="false" selection-start-line="40" selection-start-column="35" selection-end-line="40" selection-end-column="35" />
+        <state relative-caret-position="1088">
+          <caret line="40" column="17" lean-forward="false" selection-start-line="40" selection-start-column="17" selection-end-line="40" selection-end-column="17" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/yelp.js">
+    <entry file="file://$PROJECT_DIR$/src/components/maps.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="960">
-          <caret line="24" column="72" lean-forward="false" selection-start-line="24" selection-start-column="72" selection-end-line="24" selection-end-column="72" />
+        <state relative-caret-position="421">
+          <caret line="41" column="31" lean-forward="false" selection-start-line="41" selection-start-column="31" selection-end-line="41" selection-end-column="31" />
           <folding>
-            <element signature="e#0#26#0" expanded="true" />
-            <marker date="1506818163054" expanded="true" signature="1286:1365" ph="..." />
+            <element signature="e#0#40#0" expanded="true" />
           </folding>
         </state>
       </provider>

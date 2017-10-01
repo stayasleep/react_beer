@@ -22,19 +22,28 @@ body{
     bottom: 0;
 }
 
-.black-box {
+.yelp-container{
+    padding-right: 0;
+}
+
+.black-box, .yelp-review-area {
     background: #000000;
     opacity: .8;
     color: white;
     font-weight: 700;
+}
+.black-box{
     margin: 2em 0;
     padding: 3em 1em;
-    /*font-size: 1.5em;*/
-
+}
+.yelp-review-area{
+    padding: 8px;
+    margin: 2em 0;
 }
 .food-rec{
     word-wrap: break-word;
 }
+
 .biz-review{
     margin: 1em 0;
     display: flex;
