@@ -10,7 +10,6 @@ import {centerGoogleMap, queryYelpAndPairing} from '../actions/index';
 
 
 class ModalMenu extends Component{
-
     constructor(props){
         super(props);
         this.state={
@@ -23,25 +22,19 @@ class ModalMenu extends Component{
         this.setLocation = this.setLocation.bind(this);
         this.handleChange = this.handleChange.bind(this);
     }
-    componentWillMount(){
-        console.log('modal mount');
-        //callYelp({beer:"Amber", location:"Irvine, CA"}).then(biz => console.log('yelpit',biz));
-        //callFoodPairings("Amber").then(amber=>console.log('am',amber)); //test api
-
-    }
 
     //allows us to geocode users location
     setLocation(event){
         event.preventDefault();
-
-        geocodeByAddress(this.state.address)
-            .then(results => getLatLng(results[0]))
-            .then(latLng => {
-                console.log('latlng',latLng);
-                this.props.dispatch(centerGoogleMap(latLng))
-            })
-            .catch(error => console.error('Error', error));
-        this.setState({location: true, warning: false});
+        if(this.state.address) {
+            geocodeByAddress(this.state.address)
+                .then(results => getLatLng(results[0]))
+                .then(latLng => {
+                    this.props.dispatch(centerGoogleMap(latLng))
+                })
+                .catch(error => console.error('Error', error));
+            this.setState({location: true, warning: false});
+        }
 
     }
     //handles the changing of radio buttons
@@ -49,14 +42,14 @@ class ModalMenu extends Component{
         this.setState({value: event.target.value});
     }
 
-    //submit the form contaning our buttons
+    //submit the form containing our buttons
     handleSubmit(values){
         if(this.state.location){
-            console.log('approved',values);
             let brewery;
             if(values.beer === "IPA Beer"){
                 brewery = "American%20IPA";
             }
+            //sadly, breweryDB req. specific beer names that do not vibe with Yelp results
             switch (values.beer){
                 case "IPA Beer":
                     brewery = "American IPA";
@@ -81,10 +74,8 @@ class ModalMenu extends Component{
             }
             let search ={beer: values.beer, location: this.props.geoAddress, brewery: brewery};
             this.props.dispatch(queryYelpAndPairing(search));
-            // this.setState({show: !this.state.show});
             this.props.onClose();
         }else{
-            console.log('eh');
             this.setState({warning: true});
         }
 
@@ -92,8 +83,6 @@ class ModalMenu extends Component{
 
     render(){
         const { handleSubmit, reset, submitting } = this.props;
-        console.log('modal state eh',this.state);
-        console.log('props eh',this.props);
 
         const inputProps = {
             name: "location",

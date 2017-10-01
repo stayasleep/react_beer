@@ -2,7 +2,6 @@ import React from 'react';
 import beertap from '../images/beertap.png';
 
 export default (props) => {
-    console.log('props',props);
     function handleClick(){
         props.onClick();
     }

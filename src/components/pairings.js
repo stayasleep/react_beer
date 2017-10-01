@@ -2,7 +2,6 @@ import React from 'react';
 import { Col } from 'react-bootstrap';
 
 const Pairing =({pair}) => {
-    console.log('my pair',pair);
     return(
         <Col sm={4} smOffset={3} mdOffset={0}>
             {pair.length > 0 &&

@@ -12,24 +12,21 @@ class Maps extends Component{
     }
 
     handleMapClick(){
-        console.log('map clicked')
+        // console.log('map clicked')
     }
     handleMapLoad(map) {
         this._mapComponent = map;
         if (map) {
-            console.log('zoom');
-            console.log(map.getZoom());
+            // console.log(map.getZoom());
         }
     }
     componentWillReceiveProps(nextProps){
-        console.log('map is receiving nextprops',nextProps);
         if(nextProps.markers.length > 0){
             let total = nextProps.markers.length;
             this.setState({isOpen: Array(total).fill(false), showDirection: Array(total).fill(false)});//create an array which will house state for each marker returned
         }
     }
     handleInfoToggle(index){
-        console.log('toggle for a click',this.state.isOpen.length);
         // const isOpenState = this.state.isOpen.slice();
         let markerLength = this.state.isOpen.length;
         let isOpenState = Array(markerLength).fill(false);
@@ -38,7 +35,6 @@ class Maps extends Component{
         this.setState({isOpen: isOpenState, showDirection: directions});
     }
     handleMapDirections(index){
-        console.log('index for clicking div',index);
         const directions = this.state.showDirection.slice();
         directions[index] = !this.state.showDirection[index];
         this.setState({showDirection: directions});
@@ -46,12 +42,11 @@ class Maps extends Component{
     }
 
     render(){
-        console.log('map compnt state',this.state.isOpen);
         const GettingStartedGoogleMap = withGoogleMap((props) => (
             <GoogleMap
                 defaultZoom={12} //need
                 defaultCenter={props.center} //centering the map
-                googleMapURL={googleMapURL} //need because not using withScriptJs
+                googleMapURL={googleMapURL} //req'd
                 scaleControl={true}
                 ref={props.onMapLoad}
                 onClick={props.onMapClick}
@@ -74,8 +69,6 @@ class Maps extends Component{
                                 </div>
                                 <div className="marker-options">
                                     <div className="marker-yelp"><a href={marker.url} target="_blank">Read More</a></div>
-                                    <div className="marker-directions" onClick={props.onRenderDirections(index)}>Get Directions</div>
-                                    {props.showDirection.showDirection[index]  && <DirectionsRenderer directions={{lat: marker.coords.lat, lng: marker.coords.lng}}/>}
                                 </div>
                             </div>
                         </InfoWindow>}
@@ -107,10 +100,8 @@ class Maps extends Component{
         )
     }
 }
-//if this.props.locatin is false, use defaultCenter jsX above
 
 const mapStateToProps = (state) =>{
-    console.log('map comp statefunc',state);
     return {
         center: state.maps.center,
         markers: state.yelp.yelp,
@@ -119,4 +110,3 @@ const mapStateToProps = (state) =>{
 };
 
 export default connect(mapStateToProps)(Maps);
-// export default Maps;

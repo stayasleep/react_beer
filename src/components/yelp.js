@@ -2,7 +2,6 @@ import React from 'react';
 import { Col } from 'react-bootstrap';
 
 const Yelp = ({yelp}) =>{
-    console.log('my yelp reviews',yelp);
     return(
         <Col sm={6} smOffset={3} mdOffset={2} className="yelp-container">
             <div className="yelp-review-area">

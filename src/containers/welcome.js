@@ -23,7 +23,6 @@ class Welcome extends Component{
     }
 
     render(){
-        console.log('render welcome',this.state);
         return(
             <div className="container-fluid">
                 <div className="title">Grab A Beer</div>

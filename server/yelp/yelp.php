@@ -36,20 +36,18 @@ $contents = file_get_contents("php://input");
 $contents = utf8_encode($contents);
 //create associative array with the client side data needed to make yelp call
 $yelp_terms = json_decode($contents, true);
-//var_dump($yelp_terms);
 
 query_yelp($yelp_terms);
 
 function query_yelp($yelp_terms){
     $response = json_decode(check_search($yelp_terms));
     $response =json_encode($response);
-//    var_dump($response);
     print_r($response);
 }
 
 function check_search($yelp_terms){
     $params = $yelp_terms;
-    //make sure the parms have key values
+    //make sure the params have key values
     foreach ($params as $external => $internal) {
         if($external === "term" && empty($params[$external])){
             echo('in if');
@@ -60,7 +58,6 @@ function check_search($yelp_terms){
         }
     }
     $search_query = $GLOBALS['path'] ."?". http_build_query($params);
-//    print_r($search_query);
     return request_yelp($GLOBALS['host'], $search_query);
 
 }
@@ -124,8 +121,5 @@ function request_yelp($host, $search){
 
 
 }
-
-//query_yelp($yelp_terms);
-
 
 ?>

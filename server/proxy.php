@@ -10,7 +10,7 @@ $results = json_decode($contents, true);
 
 $api_key = $results['key'];
 $beer = $results['name'];
-//var_dump($results);
+
 $params = array("key"=>$api_key, "name"=>$beer);
 
 $unsigned_url = $results['url'];
@@ -19,7 +19,6 @@ $unsigned_url = $results['url'];
 //build url
 $url = $unsigned_url ."?". http_build_query($params);
 
-//print_r($url);
 //get curl resource
 $ch = curl_init();
 curl_setopt($ch, CURLOPT_RETURNTRANSFER,1);
@@ -28,7 +27,7 @@ curl_setopt($ch, CURLOPT_URL, $url);
 $data = curl_exec($ch);
 curl_close($ch);
 $data = json_decode($data, true);
-//var_dump($data['data']);
+
 $food = $data['data'];
 $food = json_encode($food);
 
