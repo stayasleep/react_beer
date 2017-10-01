@@ -1,9 +1,10 @@
 import React from 'react';
+import { Col } from 'react-bootstrap';
 
 const Pairing =({pair}) => {
     console.log('my pair',pair);
     return(
-        <div className="col-md-4">
+        <Col sm={4} smOffset={3} mdOffset={0}>
             {pair.length > 0 &&
             <div className="black-box">
                 <h3>Style: {pair[0].name}</h3>
@@ -11,7 +12,7 @@ const Pairing =({pair}) => {
                     { pair[0].foodPairings}
                 </p>
             </div>}
-        </div>
+        </Col>
     )
 };
 

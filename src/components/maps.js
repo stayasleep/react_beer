@@ -1,6 +1,6 @@
 import React,{ Component } from 'react';
 import { connect } from 'react-redux';
-import { withGoogleMap, GoogleMap, Marker, InfoWindow } from 'react-google-maps';
+import { withGoogleMap, GoogleMap, Marker, InfoWindow, DirectionsRenderer } from 'react-google-maps';
 import icon from '../images/beer.png';
 const googleMapURL ="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyDubEdvWZUOZX4jOrSXvXFxdtH3Xpuaonw";
 
@@ -25,7 +25,7 @@ class Maps extends Component{
         console.log('map is receiving nextprops',nextProps);
         if(nextProps.markers.length > 0){
             let total = nextProps.markers.length;
-            this.setState({isOpen: Array(total).fill(false)});//create an array which will house state for each marker returned
+            this.setState({isOpen: Array(total).fill(false), showDirection: Array(total).fill(false)});//create an array which will house state for each marker returned
         }
     }
     handleInfoToggle(index){
@@ -33,12 +33,20 @@ class Maps extends Component{
         // const isOpenState = this.state.isOpen.slice();
         let markerLength = this.state.isOpen.length;
         let isOpenState = Array(markerLength).fill(false);
+        let directions = Array(markerLength).fill(false);
         isOpenState[index] = !this.state.isOpen[index];
-        this.setState({isOpen: isOpenState})
+        this.setState({isOpen: isOpenState, showDirection: directions});
+    }
+    handleMapDirections(index){
+        console.log('index for clicking div',index);
+        const directions = this.state.showDirection.slice();
+        directions[index] = !this.state.showDirection[index];
+        this.setState({showDirection: directions});
+
     }
 
     render(){
-        console.log('map compnt state',this.state);
+        console.log('map compnt state',this.state.isOpen);
         const GettingStartedGoogleMap = withGoogleMap((props) => (
             <GoogleMap
                 defaultZoom={12} //need
@@ -57,6 +65,8 @@ class Maps extends Component{
                                 </div>
                                 <div className="marker-address">
                                     {marker.address}
+                                </div>
+                                <div className="marker-add-2">
                                     {`${marker.city}, ${marker.state} ${marker.zip}`}
                                 </div>
                                 <div className="marker-phone">
@@ -64,6 +74,8 @@ class Maps extends Component{
                                 </div>
                                 <div className="marker-options">
                                     <div className="marker-yelp"><a href={marker.url} target="_blank">Read More</a></div>
+                                    <div className="marker-directions" onClick={props.onRenderDirections(index)}>Get Directions</div>
+                                    {props.showDirection.showDirection[index]  && <DirectionsRenderer directions={{lat: marker.coords.lat, lng: marker.coords.lng}}/>}
                                 </div>
                             </div>
                         </InfoWindow>}
@@ -83,10 +95,12 @@ class Maps extends Component{
                     onMapLoad={this.handleMapLoad.bind(this)}
                     onMapClick={this.handleMapClick.bind(this)}
                     onToggleOpen={(index)=> this.handleInfoToggle.bind(this,index)}
+                    onRenderDirections={(index)=> this.handleMapDirections.bind(this,index)}
                     markers={this.props.markers}
                     //onMarkerRightClick={this.handleMarkerRightClick}
                     isMarkerShown
                     isOpen={this.state}
+                    showDirection={this.state}
                     center={this.props.center} //pass in the default center on map load, and then the location entered as new center for each render
                 />
             </div>

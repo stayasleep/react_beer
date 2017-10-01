@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form'
 import renderInput from './utilities/render_input';
 import {callFoodPairings, callYelp} from '../actions/api';
-import renderBeer from './utilities/render_beer';
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete'
 import {centerGoogleMap, queryYelpAndPairing} from '../actions/index';
 
@@ -15,7 +14,6 @@ class ModalMenu extends Component{
     constructor(props){
         super(props);
         this.state={
-            show: this.props.show,
             location: false,
             warning: false,
             value: "IPA Beer",
@@ -31,11 +29,11 @@ class ModalMenu extends Component{
 
     }
 
-    componentWillReceiveProps(nextProps){
-        if(nextProps.again){
-            this.setState({show: true});
-        }
-    }
+    // componentWillReceiveProps(nextProps){
+    //     if(nextProps.again){
+    //         this.setState({show: true});
+    //     }
+    // }
 
     //allows us to geocode users location
     setLocation(event){
@@ -61,7 +59,6 @@ class ModalMenu extends Component{
     handleSubmit(values){
         if(this.state.location){
             console.log('approved',values);
-            console.log('my geo',this.props.geoAddress);
             let brewery;
             if(values.beer === "IPA Beer"){
                 brewery = "American%20IPA";
@@ -73,7 +70,7 @@ class ModalMenu extends Component{
                 case "Double IPA Beer":
                     brewery = "Imperial%20IPA";
                     break;
-                case "Amber":
+                case "Amber Ale":
                     brewery = "Amber";
                     break;
                 case "Belgium Beer":
@@ -90,8 +87,8 @@ class ModalMenu extends Component{
             }
             let search ={beer: values.beer, location: this.props.geoAddress, brewery: brewery};
             this.props.dispatch(queryYelpAndPairing(search));
-            this.setState({show: !this.state.show});
-            //call to pairings with beer
+            // this.setState({show: !this.state.show});
+            this.props.onClose();
         }else{
             console.log('eh');
             this.setState({warning: true});
@@ -118,7 +115,7 @@ class ModalMenu extends Component{
         };
 
         return(
-            <Modal show={this.state.show}>
+            <Modal show={this.props.show}>
                 <Modal.Header>
                     <Modal.Title>Grab A Beer</Modal.Title>
                 </Modal.Header>
@@ -152,7 +149,7 @@ class ModalMenu extends Component{
                             </label>
                             <br/>
                             <label>
-                                <Field name="beer" type="radio" value="Amber" onChange={this.handleChange} checked={this.state.value === "Amber"} component="input" />{' '}Amber
+                                <Field name="beer" type="radio" value="Amber Ale Beer" onChange={this.handleChange} checked={this.state.value === "Amber"} component="input" />{' '}Amber Ale
                             </label>
                             <br/>
                             <label>
@@ -173,9 +170,6 @@ class ModalMenu extends Component{
                             <Button block={true} bsStyle="primary" type="submit" >🍻 Grab A Beer</Button>
                     </form>
                 </Modal.Body>
-                <Modal.Footer>
-
-                </Modal.Footer>
             </Modal>
         )
     }
@@ -207,4 +201,3 @@ const mapStateToProps = (state)=>{
 };
 
 export default connect(mapStateToProps)(ModalMenu);
-// export default ModalMenu;

@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import {Col} from 'react-bootstrap';
-import ModalMenu from './modal';
-import Maps from './maps';
-import Tap from './tap';
-import Pairing from './pairings';
-import Yelp from './yelp'
+import ModalMenu from '../components/modal';
+import Maps from '../components/maps';
+import Tap from '../components/tap';
+import Pairing from '../components/pairings';
+import Yelp from '../components/yelp'
 
 class Welcome extends Component{
     constructor(props){
@@ -16,8 +16,10 @@ class Welcome extends Component{
     }
 
     handleTapClick(){
-        console.log("tap dat");
-        this.setState({modal: true});
+        this.setState({showModal: true});
+    }
+    handleModalClose(){
+        this.setState({showModal:false})
     }
 
     render(){
@@ -26,7 +28,7 @@ class Welcome extends Component{
             <div className="container-fluid">
                 <div className="title">Grab A Beer</div>
                 <Maps/>
-                <ModalMenu show={this.state.showModal} again={this.state.modal}/>
+                <ModalMenu show={this.state.showModal}  onClose={()=>this.handleModalClose.bind(this)()}/>
                 <div className="row">
                     <Tap onClick={()=> {this.handleTapClick.bind(this)()}}/>
                     <Yelp yelp={this.props.yelp}/>
