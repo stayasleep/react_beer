@@ -24,16 +24,11 @@ class ModalMenu extends Component{
         this.handleChange = this.handleChange.bind(this);
     }
     componentWillMount(){
+        console.log('modal mount');
         //callYelp({beer:"Amber", location:"Irvine, CA"}).then(biz => console.log('yelpit',biz));
         //callFoodPairings("Amber").then(amber=>console.log('am',amber)); //test api
 
     }
-
-    // componentWillReceiveProps(nextProps){
-    //     if(nextProps.again){
-    //         this.setState({show: true});
-    //     }
-    // }
 
     //allows us to geocode users location
     setLocation(event){
@@ -42,7 +37,6 @@ class ModalMenu extends Component{
         geocodeByAddress(this.state.address)
             .then(results => getLatLng(results[0]))
             .then(latLng => {
-
                 console.log('latlng',latLng);
                 this.props.dispatch(centerGoogleMap(latLng))
             })
@@ -68,19 +62,19 @@ class ModalMenu extends Component{
                     brewery = "American IPA";
                     break;
                 case "Double IPA Beer":
-                    brewery = "Imperial%20IPA";
+                    brewery = "Imperial IPA";
                     break;
-                case "Amber Ale":
+                case "Amber Ale Beer":
                     brewery = "Amber";
                     break;
                 case "Belgium Beer":
-                    brewery = "Belgian%20Dubbel";
+                    brewery = "Belgian Dubbel";
                     break;
                 case "Lager Beer":
-                    brewery = "American%20Lager";
+                    brewery = "American Lager";
                     break;
                 case "Porter Beer":
-                    brewery = "Robust%20Porter";
+                    brewery = "Robust Porter";
                     break;
                 default:
                     brewery = "Stout";
@@ -98,7 +92,7 @@ class ModalMenu extends Component{
 
     render(){
         const { handleSubmit, reset, submitting } = this.props;
-        console.log('state eh',this.state);
+        console.log('modal state eh',this.state);
         console.log('props eh',this.props);
 
         const inputProps = {
@@ -122,13 +116,12 @@ class ModalMenu extends Component{
                 <Modal.Body>
                     <form onSubmit={handleSubmit((values) => {this.handleSubmit(values)})}>
                         <PlacesAutocomplete inputProps={inputProps} options={options}/>
-                        {/*<Field className="form-control location-field" type="text" label="Enter Location" name="location" component={renderInput} />*/}
                         <Button block={true} bsStyle="primary" onClick={this.setLocation}  type="button" >Set Location</Button>
                         {this.state.warning ?
                             (
                                 <Alert bsStyle="danger" >
                                     <h4>Error! Must set a location before you may continue.</h4>
-                                    <p>Enter a location above or click on the geolocation button to the side.</p>
+                                    <p>Enter a location above or click on the Geolocation button to the side.</p>
                                 </Alert>
                             ): null
                         }
@@ -149,7 +142,7 @@ class ModalMenu extends Component{
                             </label>
                             <br/>
                             <label>
-                                <Field name="beer" type="radio" value="Amber Ale Beer" onChange={this.handleChange} checked={this.state.value === "Amber"} component="input" />{' '}Amber Ale
+                                <Field name="beer" type="radio" value="Amber Ale Beer" onChange={this.handleChange} checked={this.state.value === "Amber Ale Beer"} component="input" />{' '}Amber Ale
                             </label>
                             <br/>
                             <label>
@@ -175,12 +168,8 @@ class ModalMenu extends Component{
     }
 }
 function validate(values){
-    console.log('vals',values);
     const errors = {};
 
-    if(!values.location){
-        errors.location = "Required";
-    }
     if(!values.beer){
         errors.beer = "Required";
     }

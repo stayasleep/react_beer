@@ -3,7 +3,6 @@ import {YELP_SUCCESS, PAIRING_SUCCESS} from '../actions/types';
 import {callFoodPairings, callYelp} from '../actions/api';
 
 export function* yelpPairSaga({payload}){
-    console.log('my yelpPairSaga',payload);
     try{
         const businesses = yield call(callYelp, payload);
         const pairing = yield call(callFoodPairings,payload);

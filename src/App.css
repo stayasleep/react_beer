@@ -10,6 +10,9 @@ body{
 .title {
     text-align: center;
     font-size: 4em;
+    color: #FFFFFF;
+    background: #000000;
+    opacity: 0.8;
 }
 
 .tap-it {

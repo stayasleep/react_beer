@@ -5,7 +5,6 @@ import {MAP_CENTER, MAP_CENTER_ERR} from '../actions/types';
 export function* locationSaga({payload}){
 
     try{
-        //const map = yield call(googleIt, payload); //no API call necessary
         yield put({type: MAP_CENTER, payload}); //load is an object
     } catch(error){
         yield put({type: MAP_CENTER_ERR, error});
