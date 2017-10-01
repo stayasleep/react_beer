@@ -29,8 +29,10 @@ class Maps extends Component{
         }
     }
     handleInfoToggle(index){
-        console.log('toggle for a click',index);
-        const isOpenState = this.state.isOpen.slice();
+        console.log('toggle for a click',this.state.isOpen.length);
+        // const isOpenState = this.state.isOpen.slice();
+        let markerLength = this.state.isOpen.length;
+        let isOpenState = Array(markerLength).fill(false);
         isOpenState[index] = !this.state.isOpen[index];
         this.setState({isOpen: isOpenState})
     }
@@ -49,13 +51,20 @@ class Maps extends Component{
                 {props.markers.length>0 && props.markers.map((marker,index) =>(
                     <Marker key={index} icon={icon} position={{lat: marker.coords.lat, lng: marker.coords.lng}} onClick={props.onToggleOpen(index)}>
                         {props.isOpen.isOpen[index] && <InfoWindow onCloseClick={props.onToggleOpen(index)}>
-                            <div>
-
-                                {marker.name}
-                                {marker.address}
-                                {`${marker.city}, ${marker.state} ${marker.zip}`}
-                                {marker.phone}
-
+                            <div className="info-window">
+                                <div className="marker-name">
+                                    {marker.name}
+                                </div>
+                                <div className="marker-address">
+                                    {marker.address}
+                                    {`${marker.city}, ${marker.state} ${marker.zip}`}
+                                </div>
+                                <div className="marker-phone">
+                                    {marker.phone}
+                                </div>
+                                <div className="marker-options">
+                                    <div className="marker-yelp"><a href={marker.url} target="_blank">Read More</a></div>
+                                </div>
                             </div>
                         </InfoWindow>}
                     </Marker>
