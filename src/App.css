@@ -17,17 +17,44 @@ body{
     width: 22vmin;
     /*position: absolute;*/
     position: fixed;
-    left: 6%;
+    left: 2%;
 
     bottom: 0;
 }
 
-.blackBox {
+.black-box {
     background: #000000;
     opacity: .8;
     color: white;
     font-weight: 700;
     margin: 2em 0;
     padding: 3em 1em;
-    font-size: 1.5em;
+    /*font-size: 1.5em;*/
+
+}
+.food-rec{
+    word-wrap: break-word;
+}
+.biz-review{
+    margin: 1em 0;
+    display: flex;
+    justify-content: space-between;
+}
+.main-attr, .secondary-attr {
+    display: flex;
+}
+.main-info{
+    /*display: inline-block;*/
+}
+.main-img{
+    /*display: inline-block;*/
+    padding-right: 8px;
+}
+.img {
+    border-radius: 4px;
+}
+.secondary-attr {
+    /*float: right;*/
+    flex-direction: column;
+    align-items: flex-end;
 }

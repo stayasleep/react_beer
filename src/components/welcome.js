@@ -5,6 +5,7 @@ import ModalMenu from './modal';
 import Maps from './maps';
 import Tap from './tap';
 import Pairing from './pairings';
+import Yelp from './yelp'
 
 class Welcome extends Component{
     constructor(props){
@@ -28,7 +29,7 @@ class Welcome extends Component{
                 <ModalMenu show={this.state.showModal} again={this.state.modal}/>
                 <div className="row">
                     <Tap onClick={()=> {this.handleTapClick.bind(this)()}}/>
-                    <Col md={6} mdOffset={3}>Placeholder</Col>
+                    <Yelp yelp={this.props.yelp}/>
                     <Pairing pair={this.props.pairing}/>
                 </div>
             </div>
@@ -38,6 +39,7 @@ class Welcome extends Component{
 const mapStateToProps = (state)=>{
     return{
         pairing: state.pairing.pairing,
+        yelp: state.yelp.yelp
     }
 };
 
